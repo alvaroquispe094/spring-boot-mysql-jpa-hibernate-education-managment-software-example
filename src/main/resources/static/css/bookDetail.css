@@ -1,0 +1,111 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing:border-box;
+}
+
+#container{
+    padding: 0px;
+    width: 100%;
+    margin: 0px auto;
+}
+
+#logo{
+    width: 100%;
+    
+    box-sizing:border-box;
+}
+
+#logo #banner{
+    width: 100%;
+}
+
+#cuerpo{
+    width: 100%;
+    box-sizing:border-box;
+    padding: 0px;
+    clear: both;
+}
+
+#cuerpo #bookDetail{
+    width: 25%;
+    background-color: #F5F5F5 ;
+    box-sizing:border-box;
+    margin: 0 auto;
+}
+
+#cuerpo #bookDetail #formBookDetail{
+    width: 100%;
+    padding: 45px 45px 75px 45px;
+    border-top: 1px lightgray solid;
+    
+}
+#cuerpo h2{
+    padding: 25px 20px 25px 20px;
+    text-align: center;
+    font-family: Times New Roman ;
+    border-top:3px #FF6666 solid;
+}
+#cuerpo #bookDetail #formBookDetail #btnBookDetail{
+	width:40%;
+	float: left;
+	padding: 13px;
+	background-color: #FF6666 ;
+}
+#cuerpo #bookDetail label{
+    font-family: Times New Roman ;
+}
+
+#cuerpo #bookDetail input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 40px;
+    border: 1px lightgray solid;
+    border-radius: 5px;
+}
+
+nav{
+    width: 100%;
+    height: 50px;
+    background-color: #F2F2F2;
+    margin-bottom: 15px;
+    border: 1px solid;
+    border-color: rgb(210,210,210);
+    box-sizing:border-box;
+}
+
+#navigator{
+    width: 100%;
+    height: 100%;
+    float: left;
+    box-sizing:border-box;
+}
+
+#navigator ul { /*elimina los puntos de cada lista*/
+    list-style: none;
+    width:100%;
+    float: left;
+    box-sizing:border-box;
+}
+
+#navigator>ul>li { /*acomoda horizontalmente el menu*/
+    width: 100px;
+    text-align: center;
+    float: left;
+    box-sizing:border-box;
+}
+
+#navigator ul li a {
+    color: gray;
+    text-decoration: none;
+    font-family: Times New Roman; 
+    padding: 15px;
+    display: block;
+    box-sizing:border-box;
+}
+
+#navigator li a:hover { /*le da el efecto al poner el mouse sobre el item del menu*/
+    background-color: #CECECE;
+    box-sizing:border-box;
+}
+

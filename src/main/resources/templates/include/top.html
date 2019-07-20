@@ -1,0 +1,95 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default " th:fragment="top" >
+	
+	<div id="containerNav" class="container-fluid">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a  href="#"><img src="img/logo.png" alt="Logo" /></a>
+       </div>
+       <div id="navbar" class="navbar-collapse collapse">
+         <div th:with="usuario=${session}"></div>
+         <ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+           <li class="active"><a href="/">Home</a></li>
+           <li><a href="#">Eventos</a></li>
+           <li><a href="#">Universidades</a></li>
+           <li><a href="#">Nosotros</a></li>
+           <li><a href="#">Contacto</a></li>
+           <li class="dropdown">
+	             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingresar <span class="caret"></span></a>
+	             <ul class="dropdown-menu">
+	               <li><a href="/login"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
+<!-- 	               <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Registarse</a></li> -->
+	             </ul>
+	           </li>
+           
+         </ul>
+         
+         <ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('PROFESOR')">  
+				<li><a href="#"><i class="fa fa-send"></i>&nbsp;Enviar mensaje</a></li>
+				<li><a href="administrarProfesorInscripciones"><i class="fa fa-list"></i>&nbsp;Mis Materias</a></li>
+				<li><a href="#"><i class="fa fa-book"></i>&nbsp;Reportes</a></li>
+               	<li class="dropdown pull-right">
+                   	<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span sec:authentication="principal.username"/><b class="caret"></b></a>
+                   	<ul class="dropdown-menu">
+                   		<li><a href="modificarProfesorDatos"><i class="fa fa-edit"></i>&nbsp;Modificar datos</a></li>
+                     	<li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"/>  Logout</a></li>
+
+                   	</ul>
+               	</li>                   
+	           
+         </ul>
+         
+         
+         
+         <ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('ADMIN')">  
+         		<li><a href="administrarInscripciones"><i class="fa fa-institution"></i>&nbsp;Inscripciones</a></li>
+				<li><a th:href="@{/administrarProfesores}"><i class="fa fa-list"></i>&nbsp;Profesores</a></li>
+				<li><a th:href="@{/administrarEstudiantes}"><i class="fa fa-list"></i>&nbsp;Estudiantes</a></li>
+<!-- 				<li><a href="#"><i class="fa fa-user"></i>&nbsp;Recibidos</a></li> -->
+				<li><a href="#"><i class="fa fa-book"></i>&nbsp;Reportes</a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Configuraci&oacute;n<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						
+						<li><a href="administrarAulas">Aulas</a></li>
+						<li><a href="administrarCarreras">Carreras</a></li>
+						<li><a href="administrarMaterias">Materias</a></li>
+						<li><a href="administrarInscripcionEstudianteNotas">Notas</a></li>
+						<li><a href="administrarUsuarios">Administradores</a></li>
+					</ul>
+				</li>
+               <li class="dropdown pull-right">
+                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span sec:authentication="principal.username"/><b class="caret"></b></a>
+                   <ul class="dropdown-menu">
+                     <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"/>  Logout</a></li>
+ 
+                   </ul>
+               </li>                   
+	           
+         </ul>
+         
+         <ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('ESTUDIANTE')">
+         		<li><a href="administrarEstudianteInscripciones"><i class="fa fa-institution"></i>&nbsp;Inscripciones</a></li>  
+				<li><a href="administrarEstudianteInscripcionMaterias"><i class="fa fa-list"></i>&nbsp;Mis Materias</a></li>
+				<li><a href="administrarMisNotas"><i class='fa fa-list-alt'></i>&nbsp;Mis notas</a></li>
+				<li><a href="#"><i class="fa fa-book"></i>&nbsp;Reportes</a></li>
+               	<li class="dropdown pull-right">
+                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span sec:authentication="principal.username"/><b class="caret"></b></a>
+                   <ul class="dropdown-menu">
+                   		<li><a href="modificarEstudianteDatos"><i class="fa fa-edit"></i>&nbsp;Modificar datos</a></li>
+                     	<li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"/>  Logout</a></li>
+
+                   </ul>
+               </li>                   
+	           
+         </ul>
+         
+         
+       </div>
+	</div>
+</nav>
+

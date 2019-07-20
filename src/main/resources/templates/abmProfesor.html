@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Book List</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>	
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+				
+    </head>
+    <body>
+    
+    	<div th:replace="include/top :: top"></div>
+    	
+    	<div th:replace="include/mensajes :: mensajes"></div>
+    	
+        <div id="container" class="container-fluid">     
+<!--             <input type="button" class="btn btn-lg btn-primary btn-block" value="Register"/> -->
+            
+            <div class="row" style="margin-top:20px">
+            	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" >
+            		<a th:href="@{/nuevoProfesor}" class="btn btn-primary">Nuevo</a>
+            	</div>	
+            	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-6 col-sm-offset-8 col-md-offset-8 col-lg-offset-8" style="text-align:right;">
+					<a href="javascript:history.back()" class="btn btn-default" > Volver Atrás</a>           	
+				</div>
+			</div>	
+            
+            <div class="row">
+            	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-lg-offset-2" >
+					<form id="abmUsuarioFilterForm" name="abmUsuarioFilterForm" action="administrarProfesores" class="form-horizontal" autocomplete="off">
+						<fieldset>
+							<div id="primerParte">
+								<div class="form-group">
+									<label for="nombre" class="control-label col-lg-4">Nombre</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" th:value="${modelo.nombre}"/>
+									</div>
+								</div>
+								<div class="form-group">
+								    <div class="col-lg-offset-4 col-lg-4">
+										<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar</button>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+            	
+            <div id="cuerpo"  style="margin-bottom: 30px">
+                <div class="tableDiv" id="listBook"  th:if="${modelo.cantidad != 0}">
+                    <h2>Lista de profesores</h2>
+                    <br></br>
+                    
+                    <div class="table-responsive">
+	                    <table id="table" class="table table-striped">
+	                        <thead>
+	                            <tr>
+	                                <th>Nombre</th>
+	                                <th>Apellido</th>
+	                                <th>Documento</th>
+	                                <th>Usuario</th>
+	                                <th>E-mail</th>
+	                                <th>Direccion</th>
+	                                <th>Telefono</th>
+	                                <th>Fecha</th>
+	                                <th>Titulo</th>
+	                                <th>Activo?</th>
+	                                <th>Acciones</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr th:each="profesor : ${modelo.profesores}">
+	                                <td th:text="${profesor.nombre}"></td>
+	                                <td th:text="${profesor.apellido}"></td>
+	                                <td th:text="${profesor.documento}"></td>
+	                                <td th:text="${profesor.username}"></td>
+	                                <td th:text="${profesor.mail}"></td>
+	                                <td th:text="${profesor.direccion}"></td>
+	                                <td th:text="${profesor.telefono}"></td>
+	                                <td th:text="${#dates.format(profesor.fecha, 'dd/MM/yyyy')}"></td>
+	                                <td th:text="${profesor.titulo}"></td>
+	                                <td th:switch="${profesor.activo}">
+										<span th:case="true">Si</span>
+										<span th:case="*">No</span>
+									</td>
+	                                <td>
+	                                	<a th:href="@{'/desactivarProfesor'(id=${profesor.id})}" class="btn btn-danger" th:if="${profesor.activo}">Desactivar</a>
+									
+										<a th:href="@{'/activarProfesor'(id=${profesor.id})}" class="btn btn-info" th:unless="${profesor.activo}">Activar</a>
+	                                	
+	                                	<a th:href="@{'/editarProfesor'(id=${profesor.id})}" class="btn btn-success">Editar</a>
+	                                
+	                                </td>
+	                                
+	                            </tr>
+	                        </tbody>
+	                    </table>    
+                    </div>
+               		
+               		<div th:replace="include/pagination :: pagination"></div>     
+                    
+                </div>
+                
+                
+	           <div th:unless="${modelo.cantidad != 0}">
+					<p class="clear no-result text-center">No se encontraron resultados</p>   	
+				</div>
+				
+            </div>
+            
+            
+           
+           
+            
+<!--            <div id="ocultar" class="btn btn-success">Click aquí</div>-->
+        </div>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Register</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    
+		<!-- generic -->
+	    <link href="/css/style-generic.css" rel="stylesheet" media="screen"/>
+	    
+		<!-- bootstrap -->
+	   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css" rel="stylesheet"></link>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+		
+	
+		<script type="text/javascript" src="js/inscripcionForm.js"></script>
+        
+      
+        
+    </head>
+    <body>
+    	 <div th:replace="include/top :: top"></div>
+    	
+        <div id="container" class="container">  
+            
+            <div class="row" style="margin-top:20px;" >
+      
+            	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-8" style="text-align:right;">
+					<a href="javascript:history.back()" class="btn btn-default" > Volver Atrás</a>           	
+				</div>
+			
+			</div>	
+				
+            <div id="cuerpo" class="row" style="margin-top:20px">
+            	
+            	<div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+           			 <div class="panel panel-default">
+                		<div class="panel-heading" style="background-color:#337ab7;border-color: #2e6da4;">
+								
+							<div  th:if="${modelo.inscripcion.id != null}">	
+								<h1 class="text-center" style="color:white;">Editar Inscripcion</h1>
+							</div>
+							<div th:unless="${modelo.inscripcion.id != null}">	
+								<h1 class="text-center" style="color:white;">Nueva inscripcion</h1>
+							</div>
+
+                     	</div>
+		                <div class="panel-body">
+		                    <form id="inscripcionForm" name="inscripcionForm" th:action="@{/guardarInscripcion}" method="post">
+				                <fieldset>                    
+				
+				                  
+									<input type="hidden" name="id" id="id" th:value="${modelo.inscripcion.id}" />
+									
+				                    
+				                    
+				                    <div class="form-group">
+				                    	<label for="carrera" class="control-label "><font face="Verdana">Carrera</font></label>
+				                        <select  id="carrera" name="carrera" class="form-control "  required="required">
+											<option value="">Seleccione Carrera</option>
+											
+											<option th:each="carrera : ${modelo.carreras}" th:if="${carrera.activo}" th:selected="(${modelo.carrera.id} == *{carrera.id})" class="opcion" th:value="${carrera.id}" th:text="${carrera.nombre}"></option>
+												
+									
+										</select>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                    	<label for="materia" class="control-label "><font face="Verdana">Materia</font></label>
+				                        <select  id="materia" name="materia" class="form-control" required="required">
+											<option value="">Seleccione Materia</option>
+											
+											<option th:each="materia : ${modelo.materias}" th:if="${materia.activo}" th:selected="(${modelo.materia.id} == *{materia.id})" class="opcion" th:value="${materia.id}" th:text="${materia.nombre}"></option>
+												
+									
+										</select>
+				                    </div>
+			
+				                    <div class="form-group">
+				                    	<label for="fechaInicio" class="control-label "><font face="Verdana">Fecha Inicio</font></label>
+				                        <input type="text" name="fechaInicio" id="fechaInicio" class="form-control"  th:value="${modelo.inscripcion.fecha_inicio != null}? ${#dates.format(modelo.inscripcion.fecha_inicio,'dd/MM/yyyy')}" required="required"/>
+				                    </div>
+				                     <div class="form-group">
+				                    	<label for="fechaFin" class="control-label "><font face="Verdana">Fecha Fin</font></label>
+				                        <input type="text" name="fechaFin" id="fechaFin" class="form-control" th:value="${modelo.inscripcion.fecha_fin != null}? ${#dates.format(modelo.inscripcion.fecha_fin,'dd/MM/yyyy')}" required="required"/>
+				                    </div>
+				                     <div class="form-group">
+				                    	<label for="cantidad" class="control-label "><font face="Verdana">Cantidad </font></label>
+				                        <input type="number" name="cantidad" id="cantidad" class="form-control" th:value="${modelo.inscripcion.cantidad}"  required="required"/>
+				                    </div>
+				
+				                    <div class="form-group">
+				                        <div class="col-lg-offset-2 col-lg-10">
+				                        	<a href="javascript:void(0);" onclick="history.back(-1)" class="btn btn-danger">Cancelar</a>
+				                            <input type="submit" class="btn btn-success" value="Guardar"/>
+				                        </div>
+				                       
+				                    </div>
+				                    
+				                </fieldset>
+		            		</form>
+		                </div>
+           
+		            </div>
+		        </div>
+               
+                        
+                       
+               
+                
+            </div>
+      
+        </div>
+         
+    </body>
+</html>

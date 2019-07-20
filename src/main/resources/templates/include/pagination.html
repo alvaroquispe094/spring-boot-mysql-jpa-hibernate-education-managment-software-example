@@ -1,0 +1,27 @@
+<!-- Pagination-->
+<div id="pagination"  th:fragment="pagination">
+	<ul class="pagination">
+		<li>
+		    <span th:if="${modelo.page.hasPrevious()}">
+		        <a th:href="@{${modelo.url}(page=${modelo.page.number-1},size=${modelo.page.size})} + ${modelo.query}">Previous</a>
+		    </span>
+		</li>
+		   
+	    <th:block th:each="i: ${#numbers.sequence(0, modelo.page.totalPages - 1)}">
+	    	<li th:if="${modelo.page.number == i}" class="active">
+		        <span  th:text="${i + 1}" ></span>
+		    </li>
+		    <li th:unless="${modelo.page.number == i}">
+<!-- 		        <span th:unless="${page.number == i}"> -->
+		             <a th:href="@{${modelo.url}(page=${i},size=${modelo.page.size})} + ${modelo.query}" th:text="${i + 1}"></a>
+<!-- 		        </span> -->
+	        </li>
+	    </th:block>
+	
+		<li>    
+		    <span th:if="${modelo.page.hasNext()}">
+		        <a th:href="@{${modelo.url}(page=${modelo.page.number+1},size=${modelo.page.size})} + ${modelo.query}">Next</a>
+		    </span>
+		</li>    
+    </ul>
+</div>

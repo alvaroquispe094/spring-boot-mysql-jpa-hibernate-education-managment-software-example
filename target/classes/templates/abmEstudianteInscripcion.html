@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Inscripcion</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+		
+		<!-- generics -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>	
+			
+		<!-- boostrap libraries	 -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+		
+		<script type="text/javascript" src="/js/abmEstudianteInscripcion.js"></script>	
+				
+    </head>
+    <body>   	
+    	
+    	<div th:replace="include/top :: top"></div>
+    	
+    	<div th:replace="include/mensajes :: mensajes"></div>
+    	
+        <div id="container" class="container-fluid">     
+            
+            <div class="row" style="margin-top:20px">
+            	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" >
+<!--             		<a th:href="@{/nuevaInscripcion}" class="btn btn-primary">Nuevo</a> -->
+            	</div>	
+            	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-6 col-sm-offset-8 col-md-offset-8 col-lg-offset-8" style="text-align:right;">
+					<a href="javascript:history.back()" class="btn btn-default" > Volver Atrás</a>           	
+				</div>
+			</div>	
+            
+            <div class="row">
+            	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-lg-offset-2" >
+					<form id="abmInscripcionFilterForm" name="abmInscripcionFilterForm" action="administrarEstudianteInscripciones" class="form-horizontal" autocomplete="off">
+						<fieldset>
+							<div id="primerParte">
+								
+								
+								<div class="form-group">
+									<label for="materia" class="control-label col-lg-4">Materia</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" id="materia" name="materia" placeholder="Materia" th:value="${modelo.materia}"/>
+									</div>
+								</div>
+								
+								<div class="form-group">
+								    <div class="col-lg-offset-4 col-lg-4">
+										<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar</button>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+            
+            <div id="cuerpo"  style="margin-bottom: 30px">
+                <div class="tableDiv" id="listBook"  th:if="${modelo.cantidad != 0}">
+                    <h2>Lista de Inscripciones</h2>
+                    <br></br>
+                    
+                    <div class="table-responsive">
+	                    <table id="table" class="table table-striped">
+	                        <thead>
+	                            <tr>
+	                                
+	                                <th>Materia</th>
+	                                <th>Fecha Inicio</th>
+	                                <th>Fecha Fin</th>
+	                                <th>Estado</th>
+	                                 <th>Acciones</th>
+	                               
+	                                
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr th:each="inscripcion : ${modelo.inscripciones}">
+	                                <td th:text="${inscripcion.materia.nombre}"></td>
+	                                <td th:text="${#dates.format(inscripcion.fecha_inicio, 'dd/MM/yyyy')}"></td>
+	                                <td th:text="${#dates.format(inscripcion.fecha_fin, 'dd/MM/yyyy')}"></td>
+	                                <td th:text="${inscripcion.estado.nombre}"></td>
+	                                
+	                                <td>
+	                                		                        
+	                                	<a  th:href="@{'/guardarEstudianteInscripcion'(idInscripcion=${inscripcion.id})}" th:onclick="'return validarStock(\''+ ${inscripcion.cantidad} +'\')'" class="btn btn-success">Inscribirse</a>
+	                                	
+<!-- 	                                	<a th:href="@{'/eliminarInscripcionEstudiante'(id=${inscripcion.id})}" class="btn btn-danger">Borrar</a> -->
+	                                	
+	                                	<a th:href="@{'/administrarInscripcionHorarios'(id=${inscripcion.id})}" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Horarios</a>
+	                                	
+	                                	<a th:href="@{'/administrarEstudianteInscripcionProfesores'(id=${inscripcion.id})}" class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Profesores</a>                                
+	                                </td>
+	                                
+	                            </tr>
+	                        </tbody>
+	                    </table>    
+                    </div>
+               		
+               		<div th:replace="include/pagination :: pagination"></div>     
+                    
+                </div>
+                
+                
+	           <div th:unless="${modelo.cantidad != 0}">
+					<p class="clear no-result text-center">No se encontraron inscripciones</p>   	
+				</div>
+				
+            </div>
+            
+        </div>
+    </body>
+</html>

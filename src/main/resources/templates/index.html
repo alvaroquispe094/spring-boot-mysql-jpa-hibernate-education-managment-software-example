@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Home Page</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+        <link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 
+		<link href="/css/index.css" rel="stylesheet" media="screen"/>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+    <body>
+    	<div th:replace="include/top :: top"></div>
+    	                        
+           
+    	
+    	<header>
+	      	
+	        	<img th:src="@{/img/header2.jpg}" id="banner" alt="image" width="100%"/>
+	      	
+	    </header>
+    	
+
+        <div id="container" class="container"> 
+            	
+
+            <div class="blog-post"  style="margin-top: 50px;margin-bottom:60px;">
+                
+	            <h1 >Bienvenidos a Universia</h1>
+	        
+	            <p class="lead">Universia es una universidad reconocida en el mundo por su excelencia y calidad educativa.
+	             				Nos avalan importantes universidades del mundo y nuestros mas de 50 a&ntilde;os en la educaci&oacute;n y 
+	             				creacion de profesionales con calificados para las grandes industrias. No espere m&aacute;s e inscribase en nuestra universidad. </p>
+	            <img th:src="@{/img/students.png}" id="banner" alt="image" width="100%"/>
+				            
+            </div>
+            
+        </div>
+        
+        <div  id="img-campus">  
+        	<div class="container">  
+				<h1 >Campus</h1>
+	            <div class="row">
+					  <div class="col-sm-6">
+					  	<div class="card">
+
+						  <!-- Card image -->
+						  <img class="card-img-top" src="/img/campus1.jpg" alt="Card image cap" width="100%"/>
+						
+						  <!-- Card content -->
+						  <div class="card-body">
+						
+						    <!-- Title -->
+						    <h3 class="card-title">Entrada principal</h3>
+						    <!-- Text -->
+						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						 
+						
+						  </div>
+						
+						</div>
+
+					  </div>
+					  <div class="col-sm-6">
+					    <div class="card">
+					    	<img class="card-img-top" src="/img/campus2.jpg" alt="Card image cap" width="100%"/>
+					      <div class="card-body">
+						
+						    <!-- Title -->
+						    <h3 class="card-title">Edificio principal</h3>
+						    <!-- Text -->
+						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						 
+						
+						  </div>
+					    </div>
+					  </div>
+					  <div class="col-sm-6">
+					    <div class="card">
+					    	 <img class="card-img-top" src="/img/campus3.jpg" alt="Card image cap" width="100%"/>
+						      <div class="card-body">
+						
+						    <!-- Title -->
+						    <h3 class="card-title">Edificio de ciencias</h3>
+						    <!-- Text -->
+						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						 
+						
+						  </div>
+					    </div>
+					  </div>
+					  <div class="col-sm-6">
+					    <div class="card">
+					    	<img class="card-img-top" src="/img/campus4.jpg" alt="Card image cap" width="100%"/>
+					      <div class="card-body">
+						
+						    <!-- Title -->
+						    <h3 class="card-title">Habitacion clasica</h3>
+						    <!-- Text -->
+						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						 
+						
+						  </div>
+					    </div>
+					  </div>
+				</div>
+            </div>
+        </div>    
+        
+		<div th:replace="include/footer :: footer"></div>
+    </body>
+</html>

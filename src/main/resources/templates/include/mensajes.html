@@ -1,0 +1,12 @@
+<!-- mensajes en pantalla -->
+<div id="mensajes" class="messages" th:if="${param.message != null}"  th:fragment="mensajes">
+    <div class="alert alert-success">
+        <p th:text="${param.message[0]}">Test</p>
+    </div>
+</div>
+
+<div id="errores" class="errores" th:if="${param.error != null}"  th:fragment="mensajes">
+    <div class="alert alert-danger">
+        <p th:text="${param.error[0]}">Test</p>
+    </div>
+</div>

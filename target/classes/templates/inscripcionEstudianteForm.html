@@ -1,0 +1,120 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Register</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    
+		<!-- generic -->
+	    <link href="/css/style-generic.css" rel="stylesheet" media="screen"/>
+	    
+		<!-- bootstrap -->
+	   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css" rel="stylesheet"></link>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+		
+		<script type="text/javascript" src="js/inscripcionEstudianteForm.js"></script>
+		<link href="/css/inscripcionEstudianteForm.css" rel="stylesheet" media="screen"/>
+        
+    </head>
+    <body>
+    	 <div th:replace="include/top :: top"></div>
+    	
+        <div id="container" class="container-fluid">  
+            
+            <div class="row" style="margin-top:20px;" >
+            	
+            	
+            	
+            	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-8" style="text-align:right;">
+					<a href="javascript:history.back()" class="btn btn-default" > Volver Atrás</a>           	
+				</div>
+			
+			</div>	
+				
+            <div id="cuerpo" class="row" style="margin-top:20px">
+            	
+            	<div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+           			 <div class="panel panel-default">
+                		<div class="panel-heading" style="background-color:#337ab7;border-color: #2e6da4;">
+								
+							<div  th:if="${modelo.inscripcionEstudiante.id != null}">	
+								<h1 class="text-center" style="color:white;">Editar InscripcionEstudiante</h1>
+							</div>
+							<div th:unless="${modelo.inscripcionEstudiante.id != null}">	
+								<h1 class="text-center" style="color:white;">Nueva InscripcionEstudiante</h1>
+							</div>
+
+                     	</div>
+		                <div class="panel-body">
+		                    <form id="inscripcionEstudianteForm" name="inscripcionEstudianteForm" action="guardarInscripcionEstudiante" method="post" autocomplete="off">
+				                <fieldset>                    
+				
+
+									<input type="hidden" name="id" id="id" th:value="${modelo.inscripcionEstudiante.id}" />
+									<input type="hidden" name="idInscripcion" id="idInscripcion" th:value="${modelo.inscripcion.id}"/>
+				                  
+<!-- 				                     <div class="form-group"> -->
+<!-- 				                    	<label for="nombre" class="control-label "><font face="Verdana">Nombre</font></label> -->
+<!-- 				                        <input type="text" name="nombre" id="nombre" class="form-control required "  th:value="${modelo.inscripcionEstudiante.nombre}" /> -->
+<!-- 				                    </div> -->
+				                    
+				                	<div class="form-group">
+				                    	<label for="estudiante" class="control-label "><font face="Verdana">Estudiante</font></label>
+				                        <select  id="estudiante" name="estudiante" class="selectpicker show-tick form-control required" data-live-search="true" data-live-search-normalize="true">
+											<option value="">Seleccione Estudiante</option>
+											
+											<option th:each="estudiante : ${modelo.estudiantes}" th:if="${estudiante.activo}" th:selected="(${modelo.estudiante.id} == *{estudiante.id})" class="opcion" th:value="${estudiante.id}" th:text="${estudiante.nombre + ' ' + estudiante.apellido + ' '+estudiante.documento}"></option>
+												
+									
+										</select>
+				                    </div>
+				                  
+				                  	<input type="hidden" name="estado" id="estado" th:value="${modelo.inscripcionEstudiante.estado.id}"/>
+				                    
+				                    <div class="form-group">
+										<label for="activo" class="control-label">Activo?</label>
+<!-- 										<div class="col-lg-4"> -->
+											<input type="checkbox" id="activo" name="activo" value="true" checked="checked"/>	
+<!-- 										</div> -->
+									</div>
+				
+				                    <div class="form-group">
+				                        <div class="col-lg-offset-2 col-lg-10">
+				                        	<a href="javascript:void(0);" onclick="history.back(-1)" class="btn btn-danger">Cancelar</a>
+				                            <input type="submit" class="btn btn-success" value="Guardar"/>
+				                        </div>
+				                       
+				                    </div>
+				                </fieldset>
+		            		</form>
+		                </div>
+           
+            </div>
+        </div>
+               
+                        
+                       
+               
+                
+            </div>
+      
+        </div>
+        
+    
+    </body>
+</html>
